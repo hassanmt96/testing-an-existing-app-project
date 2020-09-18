@@ -61,15 +61,43 @@ describe("mergeCategories()", () => {
     `;
 
     it("should return no <option>s for no categories", () => {
-      expect.fail('please write this test');
+     const categories = [];
+     let result = mergeCategories(template, categories, 'option')
+
+     expect(result).to.include('<div>');
+    expect(result).to.include('</div>');
+    expect(result).to.include('<select>');
+    expect(result).to.include('</select>');
+    expect(result).to.not.include('<option>');
+    expect(result).to.not.include('</option>');
+    expect(result).to.not.include('<!-- Content here -->');
     });
 
     it("should return a single <option> for one category", () => {
-      expect.fail('please write this test');
+      const categories = ['dog'];
+      let result = mergeCategories(template,categories,'option')
+      expect(result).to.include('<div>');
+    expect(result).to.include('</div>');
+    expect(result).to.include('<select>');
+    expect(result).to.include('</select>');
+    expect(result).to.include('<option>dog</option>');
+
+    expect(result).to.not.include('<!-- Content here -->');
     });
 
     it("should return an <option> for each category", () => {
-      expect.fail('please write this test');
+      const categories = ['1', '2', '3']
+      let result = mergeCategories(template, categories, 'option');
+      expect(result).to.include('<div>');
+      expect(result).to.include('</div>');
+      expect(result).to.include('<select>');
+      expect(result).to.include('</select>');
+
+      categories.forEach( category => {
+        expect(result).to.include(`<option>${category}</option>`);
+      })
+
+      expect(result).to.not.include('<!-- Content here -->');
     });
   });
 });
