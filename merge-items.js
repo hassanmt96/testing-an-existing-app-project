@@ -1,4 +1,5 @@
-
+const handlebars = require('handlebars');
+const helpers = require('handlebars-helpers');
 
 function mergeItems(template, items) {
   let trs = '';
