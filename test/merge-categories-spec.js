@@ -12,10 +12,27 @@ describe("mergeCategories()", () => {
     `;
 
     it("should return no <li>s for no categories", () => {
+      const categories = [];
+      let result = mergeCategories(template,categories, 'li');
+
+      expect(result).to.include('<div>');
+      expect(result).to.include('</div>');
+      expect(result).to.include('<ul>');
+      expect(result).to.include('</ul>');
+      expect(result).to.not.include('<li>');
+      expect(result).to.not.include('</li>');
+      expect(result).to.not.include('<!-- Content here -->');
     });
 
     it("should return a single <li> for one category", () => {
-      expect.fail('please write this test');
+      const categories = ['School']
+      let result = mergeCategories(template, categories, 'li');
+      expect(result).to.include('<div>');
+      expect(result).to.include('</div>');
+      expect(result).to.include('<ul>');
+      expect(result).to.include('</ul>');
+      expect(result).to.include(`<li>${categories[0]}</li>`);
+      expect(result).to.not.include('<!-- Content here -->');
     });
 
     it("should return an <li> for each category", () => {
