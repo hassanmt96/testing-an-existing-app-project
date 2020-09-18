@@ -7,7 +7,21 @@ describe("The mergeItems function", () => {
   const template = `
     <table>
       <tbody>
-        <!-- Content here -->
+        {{#each items}}
+          <tr>
+            <td>{{ add @index 1 }}</td>
+            <td>{{ title }}</td>
+            <td>{{ category }}</td>
+            <td>
+              {{#if isComplete}}
+              {{else}}
+                <form method="POST" action="/items/{{ add @index 1 }}">
+                  <button class="pure-button">Complete</button>
+                </form>
+              {{/if}}
+            </td>
+          </tr>
+        {{/each}}
       </tbody>
     </table>
   `;
