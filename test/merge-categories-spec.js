@@ -36,7 +36,18 @@ describe("mergeCategories()", () => {
     });
 
     it("should return an <li> for each category", () => {
-      expect.fail('please write this test');
+      const categories = ['1', '2', '3']
+      let result = mergeCategories(template, categories, 'li');
+      expect(result).to.include('<div>');
+      expect(result).to.include('</div>');
+      expect(result).to.include('<ul>');
+      expect(result).to.include('</ul>');
+
+      categories.forEach( category => {
+        expect(result).to.include(`<li>${category}</li>`);
+      })
+
+      expect(result).to.not.include('<!-- Content here -->');
     });
   });
 
