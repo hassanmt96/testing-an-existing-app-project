@@ -1,6 +1,7 @@
-const { expect } = require('chai');
-const chaiCounting = require('chai-counting')
-chai.use(chaiCounting);
+const chai = require('chai');
+const expect = chai.expect
+const chaiString = require('chai-string')
+chai.use(chaiString);
 const { mergeItems } = require('../merge-items');
 describe("The mergeItems function", () => {
   const template = `
@@ -80,7 +81,7 @@ describe("The mergeItems function", () => {
       {title: "Kill Bill", category: "Action"},
       {title: "Forgetting Sarah Marshall", category: "Rom-Com"}
     ];
-
+    const count = items.length
     let result = mergeItems(template, items);
 
     expect(result).to.include('<table>')
@@ -88,12 +89,18 @@ describe("The mergeItems function", () => {
     expect(result).to.include('<tbody>')
     expect(result).to.include('</tbody>')
 
-    expect(result).to.include('<tr>')
-    expect(result).to.include('</tr>')
+    expect(result).to.have.entriesCount('<tr>', count)
+    expect(result).to.have.entriesCount('</tr>', count)
 
     expect(result).to.include('<td>Pulp Fiction</td>')
     expect(result).to.include('<td>Action</td>')
 
+
+    expect(result).to.include('<td>Kill Bill</td>')
+    expect(result).to.include('<td>Action</td>')
+
+    expect(result).to.include('<td>Forgetting Sarah Marshall</td>')
+    expect(result).to.include('<td>Rom-Com</td>')
 
 
 
